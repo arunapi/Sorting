@@ -10,21 +10,21 @@ public class MergeSort {
 
         //Test Case 1
         int[] arr = generateRandomArray(1);
-        printHorzArray(arr,-1,-1);
+        printArray(arr,-1,-1);
         sorter.mergeSort(arr,0,arr.length-1);
-        printHorzArray(arr,-1,-1);
+        printArray(arr,-1,-1);
 
         //Test Case 2
         arr = generateRandomArray(2);
-        printHorzArray(arr,-1,-1);
+        printArray(arr,-1,-1);
         sorter.mergeSort(arr,0,arr.length-1);
-        printHorzArray(arr,-1,-1);
+        printArray(arr,-1,-1);
 
         //Test Case 3
         arr = generateRandomArray(10);
-        printHorzArray(arr,-1,-1);
+        printArray(arr,-1,-1);
         sorter.mergeSort(arr,0,arr.length-1);
-        printHorzArray(arr,-1,-1);
+        printArray(arr,-1,-1);
     }
 
     public void mergeSort(int[]arr, int start, int end) {
@@ -55,9 +55,9 @@ public class MergeSort {
             rightArray[j] = arr[middle+1+j];
         }
         System.out.println("Left Array :");
-        printHorzArray(leftArray,-1,-1);
+        printArray(leftArray,-1,-1);
         System.out.println("Right Array: ");
-        printHorzArray(rightArray,-1,-1);
+        printArray(rightArray,-1,-1);
         int j = 0;
         int i = 0;
         for (int k = start; k <= end; k++) {
@@ -83,7 +83,7 @@ public class MergeSort {
     //TODO Watch and improve upon lambda
 
 
-    static void printHorzArray(int[] theArray, int i, int j) {
+    static void printArray(int[] theArray, int i, int j) {
         int arraySize = theArray.length;
         for (int n = 0; n < 61; n++)
             System.out.print("-");
