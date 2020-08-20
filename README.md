@@ -2,7 +2,59 @@
 This is project explaining different kinds of Sorting algorithms mentioned in the book [Introduction to Algorithms](https://www.amazon.com/Introduction-Algorithms-3rd-MIT-Press/dp/0262033844)
 
 Contents below are my learnings from the book and Code examples are my own.
- 
+## Insertion Sort
+
+The book says
+
+    Insertion sort works the way many people sort a hand of playing cards. We start with an empty left hand and the cards face down on the table.
+    To find the correct position for a card, we compare it with each of the cards already in hand, from right to left. 
+    At all times the cards held in the left hand are sorted, and these cards were originally the top cards of the pile on the table.
+
+    The algorithm sorts the input numbers in place: it rearranges the numbers within array A, with at most a constant number of them sorted outside the array at any time. 
+
+Read is my thought experiment before writing the algorithm [here](https://dev.to/arunapi/learning-algorithms-384c)
+
+### Algorithm: Insertion Sort
+*When do I know I am ready! You never know. It's just a leap of faith. - Spiderman-Intro to Spiderverse*
+
+**Step 1:** Move the 2nd card you want to compare into the `place holder`
+
+**Step 2:** Set the position of the card you are going to compare against previous cards into `position of the card to be sorted`. 
+Set `position of the card to be sorted` as 2
+
+**Step 3:** Set `position of the previous card to be compared` = `position of the card to be sorted` - 1
+
+**Step 4:** Check if `position of the previous card to be compared` > 0. There is at least one previous card to compare.
+else, go to Step 9.
+
+**Step 4:** Compare the card in your `place holder` against the card in `position of the previous card to be compared`. 
+If the value in `place holder` is less, go to Step 5, else go to Step 
+
+**Step 5:** Shift the card you just compared to the `position of the previous card to be compared`. 
+
+A[`position of the previous card to be compared`+1] = A[`position of the previous card to be compared`] 
+
+**Step 6:** Decrement the value of `position of the previous card to be compared` in order to compare the card in your `place holder` with the one before.
+        
+`position of the previous card to be compared` = `position of the previous card to be compared` - 1', and go to Step 4
+
+**Step 7:** You found the position where the card needs to be inserted and shifted all the cards greater than the current card value.
+Insert the card after the `position of the previous card to be compared`.
+
+A[`position of the previous card to be compared`+1] = `place holder`
+
+**Step 8:** if next card exists `position of the card to be sorted`+1 < array size, move the next card in the `place holder` else, you've finished sorting, go to Step 10.
+
+**Step 9:** Set the position of the card you are going to compare against previous cards into `position of the card to be sorted`.  Go to Step 3.
+
+**Step 10:** End
+
+I took the leap of faith, focused on re-usability of the steps, reduced my chatter, and arrived at the above steps after several re-writes.
+
+This is not a tutorial for the Insertion Sort algorithm. The algorithm above is one of several ways and can even be optimized. 
+If at all you want to take away one thing from this blog, it is just that, 
+while trying to learn algorithms, slowing yourself down and writing down your thoughts really help.
+
 ## Merge Sort
 
 Algorithm design technique used for merge sort is **divide-and-conquer** snd is recursive in structure.
@@ -114,6 +166,45 @@ How can we prove this? For a minute imagine that you are creating a heap by simp
 |8| node 3|3|0 ...|
 |...|...|...|...|
 |n| node n|number of 2s in n| 0 at Step n |
+
+### Building a Max-Heap
+
+Remember, Heap -> an array of nodes
+
+Remember, Tree in a Heap -> an array of nodes, each node at `i` may have PARENT at `i/2`, LEFT at `2i` and RIGHT at `2i+1`
+
+
+In order to build a max heap from an array, we need to make sure, any tree in the array is not violating the max heap property.
+
+Given an array and node at i, make sure it's tree (NODE, LEFT, RIGHT), follows the max heap property.
+
+#### Algorithm to recursively max-heapify a tree represented in an array
+
+Step 1: largest = i
+Step 2: Check if left node exists, node at largest < left node, go to Step 3 else Step 4
+Step 3: largest = left node index
+Step 4: Check if right node exists, node at largest < right node, go to Step  else Step 7
+Step 6: largest = right node index
+Step 7: if largest != i, oh man the tree is wrong, correct it. Go to Step 8 else all good, go to Step 10
+Step 8: Swap largest and i. Ok we got one right.
+Step 9: let's repeat to make sure the node at largest is correct in its new position, Set i = largest and go to Step 1
+Step 10: END
+
+So we figured out a way to correct the tree and repeat the process until all trees are corrected in the array, but where do we start?
+
+Given an n node array A[0,1,2....n-1] = {node 1, node 2, .....node n}
+and the derived tree (PARENT,NODE(leaf, if no left or right),LEFT(leaf of tree),RIGHT(leaf of tree)) representation of heap, 
+note that the leaves of the tree are nodes indexed by n/2 + 1, n/2 + 2,....,n
+
+So all the elements in A[n/2 + 1, n/2 + 2,...., n-1] are leaf nodes.
+
+We will start at the bottom right tree (n/2). 
+
+Not clear? draw out a 8 node tree, we will start at index 4
+
+#### Algorithm
+Step 1: for i=heapSize/2 to 1
+Step 2: max-heapify(A,i)    
 
 ## Benchmarking Performance
 

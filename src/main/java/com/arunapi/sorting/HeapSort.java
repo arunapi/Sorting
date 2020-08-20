@@ -17,16 +17,68 @@ public class HeapSort {
 
     public static void main(String[] args) {
 
-        int size = 10;
-        HeapSort newHeap = new HeapSort(10);
+        HeapSort newHeap = new HeapSort(15);
 
         // Print out the array before it is sorted
         System.out.println("Original Array");
         HeapSort.printHeapArray(newHeap.nodes);
         System.out.println();
-        HeapSort.printTree(-1, newHeap.nodes);
+        HeapSort.printTree(-1, newHeap.nodes,new int[]{});
+        System.out.println();
+        Node[] maxHeapNodes = buildMaxHeap(newHeap.nodes);
+        System.out.println("Max heap Array");
+        HeapSort.printHeapArray(maxHeapNodes);
+        System.out.println();
+        HeapSort.printTree(-1, maxHeapNodes,new int[]{});
         System.out.println();
 
+    }
+
+    private static Node[] buildMaxHeap(Node[] nodes) {
+        System.out.println("Starting at A["+(nodes.length/2-1)+"] = "+nodes[nodes.length/2 - 1]);
+        for(int i= nodes.length/2 - 1; i>=0; i--){
+            System.out.println("Next, Is A["+i+"] = "+nodes[i]+" at right position in it's tree?");
+            int key = nodes[i].key;
+            maxHeapify(nodes,i);
+            System.out.println(key+" is moved to the correct position");
+            System.out.println("Heap Array");
+            HeapSort.printHeapArray(nodes);
+            System.out.println();
+            HeapSort.printTree(-1, nodes,new int[]{key});
+            System.out.println();
+        }
+
+        return nodes;
+    }
+
+    private static void maxHeapify(Node[] nodes, int i) {
+        int largest = i;
+        int left = 2*(i+1) - 1;
+        int right = 2*(i+1) ;
+
+        if(left< nodes.length)
+            System.out.println("A["+i+"]'s left is at A["+left+"] = "+nodes[left]);
+        if(right< nodes.length)
+            System.out.println("A["+i+"]'s right is at A["+right+"] = "+nodes[right]);
+
+        if(left< nodes.length && nodes[largest].key < nodes[left].key){
+            largest = left;
+        }
+        if(right< nodes.length && nodes[largest].key < nodes[right].key){
+            largest = right;
+        }
+        if(largest!=i){
+            System.out.println("Swap with the largest. i.e. Move current node as a child node of the largest node. Swapping A["+i+"] with A["+largest+"]");
+            Node temp = nodes[i];
+            nodes[i] = nodes[largest];
+            nodes[largest] = temp;
+            System.out.println("Heap Array after swap");
+            HeapSort.printHeapArray(nodes);
+            System.out.println();
+            HeapSort.printTree(-1, nodes,new int[]{nodes[i].key,nodes[largest].key});
+            System.out.println();
+            maxHeapify(nodes,largest);
+        }
     }
 
     public static void printHeapArray(Node[] nodes) {
@@ -39,7 +91,7 @@ public class HeapSort {
     /**
      * Code copied and updated from http://www.newthinktank.com/2013/04/java-heap-tutorial/
      */
-    public static void printTree(int heightOfheap, Node[] nodes) {
+    public static void printTree(int heightOfheap, Node[] nodes, int[] highlightValues) {
         if(heightOfheap<0){
             heightOfheap = 0;
             int  i = nodes.length;
@@ -71,7 +123,17 @@ public class HeapSort {
                 // If the array isn't full don't try to print
                 // indexes that don't exist
                 if (l < nodes.length) {
-                    System.out.print(nodes[l].key);
+                    boolean highlight = false;
+                    for(int val: highlightValues)
+                    if (val == nodes[l].key){
+                        highlight=true;
+                    }
+                    if(highlight){
+                        System.out.print("["+nodes[l]+"]");
+                    }
+                    else{
+                        System.out.print(nodes[l]);
+                    }
                     for (int k = 0; k < spaces; k++)
                         System.out.print(" ");
                 }
