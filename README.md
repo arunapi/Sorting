@@ -180,15 +180,23 @@ Given an array and node at i, make sure it's tree (NODE, LEFT, RIGHT), follows t
 
 #### Algorithm to recursively max-heapify a tree represented in an array
 
-Step 1: largest = i
-Step 2: Check if left node exists, node at largest < left node, go to Step 3 else Step 4
-Step 3: largest = left node index
-Step 4: Check if right node exists, node at largest < right node, go to Step  else Step 7
-Step 6: largest = right node index
-Step 7: if largest != i, oh man the tree is wrong, correct it. Go to Step 8 else all good, go to Step 10
-Step 8: Swap largest and i. Ok we got one right.
-Step 9: let's repeat to make sure the node at largest is correct in its new position, Set i = largest and go to Step 1
-Step 10: END
+*Step 1:* largest = i
+
+*Step 2:* Check if left node exists, node at largest < left node, go to Step 3 else Step 4
+
+*Step 3:* largest = left node index
+
+*Step 4:* Check if right node exists, node at largest < right node, go to Step  else Step 7
+
+*Step 6:* largest = right node index
+
+*Step 7:* if largest != i, oh man the tree is wrong, correct it. Go to Step 8 else all good, go to Step 10
+
+*Step 8:* Swap largest and i. Ok we got one right.
+
+*Step 9:* let's repeat to make sure the node at largest is correct in its new position, Set i = largest and go to Step 1
+
+*Step 10:* END
 
 So we figured out a way to correct the tree and repeat the process until all trees are corrected in the array, but where do we start?
 
@@ -206,6 +214,32 @@ Not clear? draw out a 8 node tree, we will start at index 4
 Step 1: for i=heapSize/2 to 1
 Step 2: max-heapify(A,i)    
 
+## Bubble Sort
+
+With the help of some crazy visualization. Your array of n elements is scattered on the bottom of a calm pond.
+
+Bubble up the largest value to the top of the pond.(end of the array). This job is done by the in inner for loop.
+
+Repeat this for all elements in the bottom of the pond (counting backwards from n). This is done by the outer for loop.
+
+Core logic is this:
+
+```
+        for(int j=arr.length-1;j>0;j--){
+            for(int i=0;i<j;i++){
+                if(arr[i]>arr[i+1]){
+                    //swap
+                    int temp = arr[i+1];
+                    arr[i+1]=arr[i];
+                    arr[i]=temp;
+                }
+            }
+        }
+```
+
+#### Big-O
+O(n^2)
+ 
 ## Benchmarking Performance
 
     mvn clean install
