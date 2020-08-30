@@ -13,10 +13,8 @@ public class InsertionSort {
         for(int positionToSort = 1;positionToSort< arr.length;positionToSort++) {
             int placeHolder = arr[positionToSort];
             int previousPositionToCompare = positionToSort - 1;
-            while(previousPositionToCompare >= 0) {
-                if (arr[previousPositionToCompare] > placeHolder) {
-                    arr[previousPositionToCompare + 1] = arr[previousPositionToCompare];
-                }
+            while(previousPositionToCompare >= 0 && arr[previousPositionToCompare] > placeHolder) {
+                arr[previousPositionToCompare + 1] = arr[previousPositionToCompare];
                 previousPositionToCompare--;
             }
             arr[previousPositionToCompare+1]=placeHolder;
